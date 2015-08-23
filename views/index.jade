@@ -1,0 +1,19 @@
+extends layout
+
+block content
+    if posts
+    each post, i in posts
+        .post
+            h1
+                a(href='/posts/show/#{post._id}')
+                    =post.title
+            p.meta Postado em 
+                a(href='/categories/show/#{post.category}') #{post.category} 
+                por  
+                a(href='/author/show/#{post.author}') #{post.author} 
+                às #{ moment(post.date).format("DD/MM/YYYY HH:mm")}
+            img(src="/images/uploads/#{post.mainimage}")
+            != truncateText(post.body, 400)
+            a.more(href='/posts/show/#{post._id}') Leia mais
+    else
+        p.noposts Nenhum post para exibir
